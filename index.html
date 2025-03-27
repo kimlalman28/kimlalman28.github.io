@@ -94,7 +94,53 @@
       font-size: 2rem;
       font-weight: bold;
       margin-bottom: 1rem;
+      text-align: center;
     }
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    margin-left: 30px;
+    border-left: 3px solid #B3C7F9;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+  }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -45px;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #B3C7F9;
+    border: 3px solid #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+
+  .timeline-item h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #2D3748;
+  }
+
+  .timeline-item h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #4A5568;
+  }
+
+  .timeline-item p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #4A5568;
+  }
     footer {
       padding: 2rem;
       background-color: #4A5568;
@@ -132,8 +178,10 @@
   <!-- Hero Section -->
   <header>
     <img src="your-photo.jpg" alt="Your Photo">
-    <h1>Your Name</h1>
-    <p>Quick facts about you</p>
+    <h1>Kimberly's World of Code</h1>
+    <p>
+      Hello! I’m Kimberly, a software engineer passionate about building creative, user-friendly, and impactful solutions. Let’s explore my journey together!
+    </p>
     <button>Contact Me</button>
   </header>
 
@@ -141,7 +189,51 @@
   <main>
     <section id="about">
       <h2>About Me</h2>
-      <p>Your introduction text goes here.</p>
+
+      <div class="timeline">
+      <div class="timeline-item">
+        <h3>Rhino</h3>
+    
+        <h4>Tech Lead/Senior Software Engineer (Oct 2021 – Jul 2022)</h4>
+        <p>
+          As a Tech Lead, I spearheaded a major refactor that enabled integration with multiple insurance providers, incorporating Stripe connections and compliant policy documents. I collaborated on property management integrations, designed technical projects, and improved pricing algorithms with the Risk team to enhance compliance and reduce loss ratios.
+        </p>
+    
+        <h4>Software Engineer (Nov 2018 – Oct 2021)</h4>
+        <p>
+          I automated Salesforce workflows, developed a self-service onboarding system for partners, and ensured compliance with state laws through a versioning system for insurance documents. My contributions significantly improved site performance and supported the growth of Rhino’s engineering team.
+        </p>
+      </div>
+    
+      <div class="timeline-item">
+        <h3>Full Stack Developer - SyncIoT Technologies</h3>
+        <p>
+          At SyncIoT Technologies, a data analytics startup, I developed robust full-stack features to monitor environmental thresholds in buildings. Utilizing HTML, CSS, JavaScript, Node.js, and MongoDB, I implemented key functionalities such as Google Authentication, responsive design, and server-side optimizations. Collaboration with team members was pivotal in delivering high-quality solutions.
+        </p>
+      </div>
+    
+      <div class="timeline-item">
+        <h3>Software Engineering Intern - Queens Library</h3>
+        <p>
+          During my internship at Queens Library, I maintained and improved the digital archive website using Drupal. I optimized site performance by resolving bugs, enhancing user participation, and refactoring legacy code for scalability and future development.
+        </p>
+      </div>
+    
+      <div class="timeline-item">
+        <h3>NYC Tech Talent Pipeline Resident</h3>
+        <p>
+          As a resident of the NYC Tech Talent Pipeline, I was immersed in foundational web development. I gained proficiency in JavaScript, jQuery, AJAX, JSON, Git/GitHub, Heroku, Node.js, and Express.js. This experience culminated in collaborative front-end and back-end projects that showcased my technical abilities.
+        </p>
+      </div>
+    
+      <div class="timeline-item">
+        <h3>Queens College</h3>
+        <p>
+          I earned a Bachelor of Science in Computer Science with a minor in Mathematics from Queens College (2014–2018). My academic journey honed my problem-solving skills and laid the groundwork for my career in software engineering.
+        </p>
+        </div>
+
+      </div>
     </section>
 
     <section id="current">
@@ -159,8 +251,8 @@
   <footer>
     <p>Connect with me:</p>
     <ul>
-      <li><a href="#">LinkedIn</a></li>
-      <li><a href="#">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/kimberlylalmansingh/">LinkedIn</a></li>
+      <li><a href="https://github.com/kimlalman28">GitHub</a></li>
       <li><a href="#">Email</a></li>
     </ul>
   </footer>
