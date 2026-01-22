@@ -1,10 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const path = require('path');
-
-const getFileUrl = () => {
-  const indexPath = path.join(__dirname, '../index.html');
-  return `file://${indexPath}`;
-};
+const { getFileUrl } = require('./helpers/test-utils');
 
 test.describe('Portfolio Website - Responsive Design Tests', () => {
   
@@ -17,9 +12,10 @@ test.describe('Portfolio Website - Responsive Design Tests', () => {
     await expect(header).toBeVisible();
     
     // No horizontal scroll
+    // Allow 1px tolerance due to browser subpixel rendering differences
     const scrollWidth = await page.evaluate(() => document.documentElement.scrollWidth);
     const clientWidth = await page.evaluate(() => document.documentElement.clientWidth);
-    expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1); // Allow 1px tolerance
+    expect(scrollWidth).toBeLessThanOrEqual(clientWidth + 1);
   });
 
   test('should display correctly on mobile (320px - small)', async ({ page }) => {

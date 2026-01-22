@@ -1,11 +1,5 @@
 const { test, expect } = require('@playwright/test');
-const path = require('path');
-
-// Helper to get the file URL
-const getFileUrl = () => {
-  const indexPath = path.join(__dirname, '../index.html');
-  return `file://${indexPath}`;
-};
+const { getFileUrl } = require('./helpers/test-utils');
 
 test.describe('Portfolio Website - Basic Functionality', () => {
   
@@ -92,16 +86,16 @@ test.describe('Portfolio Website - Navigation', () => {
 
   test('should scroll to About section when clicking About Me link', async ({ page }) => {
     await page.click('nav a[href="#about"]');
-    // Wait a moment for smooth scroll
-    await page.waitForTimeout(500);
+    // Wait for smooth scroll animation to complete
+    await page.waitForFunction(() => !window.scrolling, { timeout: 2000 }).catch(() => {});
     
     const aboutSection = page.locator('#about');
     await expect(aboutSection).toBeInViewport();
   });
 
-  test('should scroll to Current section when clicking What I\'m Doing link', async ({ page }) => {
+  test('should scroll to Current section when clicking What Im Doing link', async ({ page }) => {
     await page.click('nav a[href="#current"]');
-    await page.waitForTimeout(500);
+    await page.waitForFunction(() => !window.scrolling, { timeout: 2000 }).catch(() => {});
     
     const currentSection = page.locator('#current');
     await expect(currentSection).toBeInViewport();
@@ -109,7 +103,7 @@ test.describe('Portfolio Website - Navigation', () => {
 
   test('should scroll to Outside Work section when clicking Outside Work link', async ({ page }) => {
     await page.click('nav a[href="#outside-work"]');
-    await page.waitForTimeout(500);
+    await page.waitForFunction(() => !window.scrolling, { timeout: 2000 }).catch(() => {});
     
     const outsideWorkSection = page.locator('#outside-work');
     await expect(outsideWorkSection).toBeInViewport();
@@ -128,7 +122,6 @@ test.describe('Portfolio Website - Navigation', () => {
     
     // Scroll down
     await page.evaluate(() => window.scrollBy(0, 500));
-    await page.waitForTimeout(200);
     
     // Nav should still be visible at top
     await expect(nav).toBeInViewport();

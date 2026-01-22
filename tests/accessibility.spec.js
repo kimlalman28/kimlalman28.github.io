@@ -1,11 +1,6 @@
 const { test, expect } = require('@playwright/test');
 const { injectAxe, checkA11y, getViolations } = require('axe-playwright');
-const path = require('path');
-
-const getFileUrl = () => {
-  const indexPath = path.join(__dirname, '../index.html');
-  return `file://${indexPath}`;
-};
+const { getFileUrl } = require('./helpers/test-utils');
 
 test.describe('Portfolio Website - Accessibility Tests', () => {
   
@@ -172,7 +167,7 @@ test.describe('Portfolio Website - Accessibility Tests', () => {
   });
 });
 
-test.describe('Portfolio Website - Accessibility Best Practices', () => {
+test.describe('Portfolio Website - Accessibility Recommendations', () => {
   
   test('buttons should have descriptive text', async ({ page }) => {
     await page.goto(getFileUrl());
@@ -204,17 +199,5 @@ test.describe('Portfolio Website - Accessibility Best Practices', () => {
       
       expect(text?.trim().length).toBeGreaterThan(0);
     }
-  });
-
-  test('should have skip to main content link (recommended)', async ({ page }) => {
-    await page.goto(getFileUrl());
-    
-    // This is a recommended feature but not required
-    // Just documenting that it could be added
-    const skipLink = page.locator('a[href="#main"]').first();
-    const count = await skipLink.count();
-    
-    // Currently doesn't exist, but should be considered
-    // expect(count).toBeGreaterThan(0);
   });
 });
