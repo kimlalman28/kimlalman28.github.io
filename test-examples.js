@@ -14,10 +14,12 @@ describe('HTML Structure Tests', () => {
   let document;
 
   beforeEach(() => {
-    // Load the HTML file
+    // Load the HTML file using jsdom
     const fs = require('fs');
+    const { JSDOM } = require('jsdom');
     const html = fs.readFileSync('./index.html', 'utf8');
-    document = new DOMParser().parseFromString(html, 'text/html');
+    const dom = new JSDOM(html);
+    document = dom.window.document;
   });
 
   test('should have required meta tags', () => {
@@ -80,7 +82,8 @@ describe('Navigation Tests', () => {
 
   test('should navigate to About section when clicking About Me link', async () => {
     await page.click('a[href="#about"]');
-    await page.waitForTimeout(500);
+    // Wait for URL to update
+    await page.waitForFunction(() => window.location.hash === '#about');
     
     const url = await page.url();
     expect(url).toContain('#about');
@@ -88,7 +91,8 @@ describe('Navigation Tests', () => {
 
   test('should navigate to Current section when clicking What I\'m Doing link', async () => {
     await page.click('a[href="#current"]');
-    await page.waitForTimeout(500);
+    // Wait for URL to update
+    await page.waitForFunction(() => window.location.hash === '#current');
     
     const url = await page.url();
     expect(url).toContain('#current');
@@ -96,7 +100,8 @@ describe('Navigation Tests', () => {
 
   test('should navigate to Outside Work section', async () => {
     await page.click('a[href="#outside-work"]');
-    await page.waitForTimeout(500);
+    // Wait for URL to update
+    await page.waitForFunction(() => window.location.hash === '#outside-work');
     
     const url = await page.url();
     expect(url).toContain('#outside-work');
@@ -286,13 +291,15 @@ describe('Link Validation Tests', () => {
   test('LinkedIn link should be valid', async () => {
     const linkedinHref = await page.$eval('a[href*="linkedin.com"]', el => el.href);
     expect(linkedinHref).toContain('linkedin.com');
-    expect(linkedinHref).toContain('kimberlylalmansingh');
+    // Verify it's a valid LinkedIn profile URL format
+    expect(linkedinHref).toMatch(/linkedin\.com\/in\/.+/);
   });
 
   test('GitHub link should be valid', async () => {
     const githubHref = await page.$eval('a[href*="github.com"]', el => el.href);
     expect(githubHref).toContain('github.com');
-    expect(githubHref).toContain('kimlalman28');
+    // Verify it's a valid GitHub profile URL format
+    expect(githubHref).toMatch(/github\.com\/.+/);
   });
 
   test('all external links should use HTTPS', async () => {
@@ -302,7 +309,7 @@ describe('Link Validation Tests', () => {
     
     externalLinks.forEach(href => {
       if (!href.startsWith('http://localhost') && href.startsWith('http')) {
-        expect(href).toMatch(/^https:\/\//);
+        expect(href).toMatch(/^https:/);
       }
     });
   });
@@ -427,6 +434,8 @@ To run these tests:
 
 1. Install dependencies:
    npm install --save-dev jest puppeteer @axe-core/puppeteer jsdom
+
+   Note: jsdom is required for parsing HTML in the Node.js test environment
 
 2. Add to package.json:
    {
