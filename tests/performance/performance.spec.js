@@ -13,7 +13,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('page should have minimal resource count', async ({ page }) => {
-    const requests: string[] = [];
+    const requests = [];
     
     page.on('request', request => {
       requests.push(request.url());
@@ -39,7 +39,7 @@ test.describe('Performance Tests', () => {
   });
 
   test('images should load efficiently', async ({ page }) => {
-    const imageRequests: any[] = [];
+    const imageRequests = [];
     
     page.on('response', response => {
       if (response.request().resourceType() === 'image') {
